@@ -69,7 +69,14 @@ export function ReservationForm() {
   const isValid = name.trim() !== '' && date !== '' && time !== '' && !isClosed;
 
   const openDatePicker = () => {
-    dateInputRef.current?.showPicker();
+    const input = dateInputRef.current;
+    if (!input) return;
+    try {
+      input.showPicker();
+    } catch {
+      input.focus();
+      input.click();
+    }
   };
 
   const handleDateChange = (newDate: string) => {
@@ -217,32 +224,28 @@ export function ReservationForm() {
               <label className={`block text-sm font-medium mb-1.5 ${tried && !date ? 'text-orange-400' : 'text-white/70'}`}>
                 {t('Fecha', 'Data', 'Date')} *
               </label>
-              <input
-                ref={dateInputRef}
-                type="date"
-                min={today}
-                value={date}
-                onChange={e => handleDateChange(e.target.value)}
-                className="sr-only"
-              />
-              <button
-                type="button"
-                onClick={openDatePicker}
-                className={`flex items-center gap-2 px-4 py-3 rounded-lg text-left w-full transition-colors ${
+              <div className={`relative flex items-center gap-2 px-4 py-3 rounded-lg text-left w-full transition-colors cursor-pointer ${
                   isClosed
                     ? 'bg-dark-lighter border border-orange-500/50 text-orange-400'
                     : tried && !date
                       ? 'bg-dark-lighter border border-orange-500/60 text-white/60'
                       : 'bg-dark-lighter border border-dark-border text-white/60 hover:border-gold/50'
-                }`}
-              >
+                }`}>
+                <input
+                  ref={dateInputRef}
+                  type="date"
+                  min={today}
+                  value={date}
+                  onChange={e => handleDateChange(e.target.value)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                />
                 <CalendarBlank size={20} />
                 {date ? (
                   <span className="text-white">{formatDateDisplay(date, lang)}</span>
                 ) : (
                   <span>{t('Seleccionar fecha', 'Seleziona data', 'Select date')}</span>
                 )}
-              </button>
+              </div>
               {tried && !date && <p className="text-orange-400 text-xs mt-1">{t('Selecciona una fecha', 'Seleziona una data', 'Select a date')}</p>}
               {isClosed && <p className="text-orange-400 text-xs mt-1">{t('No hay servicio este día. Selecciona otra fecha.', 'Nessun servizio oggi. Seleziona un\'altra data.', 'No service this day. Select another date.')}</p>}
               {!isClosed && hasHolidayHours && date && schedule?.holiday && (
