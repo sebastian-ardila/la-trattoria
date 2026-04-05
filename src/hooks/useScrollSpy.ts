@@ -9,6 +9,10 @@ export function useScrollSpy(
 ) {
   const isProgrammaticScroll = useRef(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const setActiveCategoryRef = useRef(setActiveCategory);
+  const categoryIdsRef = useRef(categoryIds);
+  setActiveCategoryRef.current = setActiveCategory;
+  categoryIdsRef.current = categoryIds;
 
   const getOffset = useCallback(() => {
     const navbar = document.querySelector('nav');
@@ -17,6 +21,31 @@ export function useScrollSpy(
     const stickyH = stickyEl ? stickyEl.offsetHeight : 120;
     return navH + stickyH + 24;
   }, [stickyContainerId]);
+
+  const detectActiveCategory = useCallback(() => {
+    const offset = getOffset();
+    const cartaEl = document.getElementById('carta');
+    const cartaRect = cartaEl?.getBoundingClientRect();
+    const isInCarta = cartaRect && cartaRect.top < window.innerHeight && cartaRect.bottom > 0;
+
+    if (!isInCarta) {
+      setActiveCategoryRef.current('');
+      return;
+    }
+
+    // Find the last section whose top has scrolled past the offset line.
+    // That's the section currently visible under the sticky header.
+    let active: string | null = null;
+    for (const id of categoryIdsRef.current) {
+      const el = document.getElementById(`category-${id}`);
+      if (!el) continue;
+      const top = el.getBoundingClientRect().top - offset;
+      if (top <= 50) {
+        active = id;
+      }
+    }
+    if (active) setActiveCategoryRef.current(active);
+  }, [getOffset]);
 
   const scrollToCategory = useCallback((categoryId: string) => {
     const el = document.getElementById(`category-${categoryId}`);
@@ -29,52 +58,36 @@ export function useScrollSpy(
     const targetY = el.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top: targetY, behavior: 'smooth' });
 
-    setActiveCategory(categoryId);
+    setActiveCategoryRef.current(categoryId);
 
     timeoutRef.current = setTimeout(() => {
       isProgrammaticScroll.current = false;
+      detectActiveCategory();
     }, 1000);
-  }, [getOffset, setActiveCategory]);
+  }, [getOffset, detectActiveCategory]);
 
+  // Scroll listener — uses refs to avoid dependency changes destroying the listener
   useEffect(() => {
-    const sections = categoryIds.map(id => document.getElementById(`category-${id}`)).filter(Boolean) as HTMLElement[];
-    if (sections.length === 0) return;
+    let ticking = false;
 
-    const cartaEl = document.getElementById('carta');
+    const onScroll = () => {
+      if (isProgrammaticScroll.current) return;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        detectActiveCategory();
+        ticking = false;
+      });
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isProgrammaticScroll.current) return;
-
-        // Check if carta section is visible
-        const cartaRect = cartaEl?.getBoundingClientRect();
-        const isInCarta = cartaRect && cartaRect.top < window.innerHeight && cartaRect.bottom > 0;
-
-        if (!isInCarta) {
-          setActiveCategory('');
-          return;
-        }
-
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const id = entry.target.id.replace('category-', '');
-            setActiveCategory(id);
-          }
-        }
-      },
-      {
-        rootMargin: '-20% 0px -70% 0px',
-        threshold: 0,
-      }
-    );
-
-    sections.forEach(s => observer.observe(s));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    detectActiveCategory();
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [categoryIds, setActiveCategory]);
+  }, [detectActiveCategory]);
 
   return { scrollToCategory, getOffset };
 }
