@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "La Trattoria - Cucina tradizionale d'Italia",
   description: 'Restaurante italiano en Pereira, Colombia. Comida italiana auténtica y carne a la piedra.',
   icons: {
-    icon: './trattoria-logo-mini.webp',
+    icon: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/trattoria-logo-mini.webp`,
   },
 };
 

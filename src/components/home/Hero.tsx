@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AppleLogo, GoogleLogo } from '@phosphor-icons/react';
 import { useLang } from '@/context/LanguageContext';
+import { assetPath } from '@/utils/basePath';
 import { businessInfo } from '@/data/businessInfo';
 import { TripAdvisorIcon, WazeIcon, GoogleMapsIcon } from '@/components/shared/BrandIcons';
 
@@ -26,10 +27,10 @@ export function Hero() {
         muted
         loop
         playsInline
-        poster="./trattoria-logo.webp"
+        poster={assetPath('/trattoria-logo.webp')}
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src="./video-hero.webm" type="video/webm" />
+        <source src={assetPath('/video-hero.webm')} type="video/webm" />
       </video>
 
       {/* Overlay */}
@@ -45,7 +46,7 @@ export function Hero() {
         {/* Logo */}
         <div className="flex items-center justify-center mb-6">
           <Image
-            src="./trattoria-logo.webp"
+            src={assetPath('/trattoria-logo.webp')}
             alt="La Trattoria"
             width={500}
             height={261}

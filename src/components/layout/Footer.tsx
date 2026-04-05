@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { InstagramLogo, FacebookLogo, WhatsappLogo, MapPin, NavigationArrow } from '@phosphor-icons/react';
 import { useLang } from '@/context/LanguageContext';
 import { businessInfo } from '@/data/businessInfo';
+import { assetPath } from '@/utils/basePath';
 import { TripAdvisorIcon, GoogleMapsIcon } from '@/components/shared/BrandIcons';
 
 export function Footer() {
@@ -15,7 +16,7 @@ export function Footer() {
         {/* Col 1: Logo + Info */}
         <div className="flex flex-col items-center md:items-start gap-4">
           <div className="flex items-center gap-3">
-            <Image src="./trattoria-logo.webp" alt="La Trattoria" width={48} height={48} className="rounded-full" />
+            <Image src={assetPath('/trattoria-logo.webp')} alt="La Trattoria" width={48} height={48} className="rounded-full" />
             <div>
               <h3 className="font-display text-lg font-semibold">La Trattoria</h3>
               <p className="text-white/50 text-sm italic">{businessInfo.tagline}</p>

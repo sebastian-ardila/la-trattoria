@@ -14,6 +14,7 @@ import {
 import { useState } from 'react';
 import { useLang, type Lang } from '@/context/LanguageContext';
 import { useCart } from '@/context/CartContext';
+import { assetPath } from '@/utils/basePath';
 import { MobileMenu } from './MobileMenu';
 
 const navItems = [
@@ -41,7 +42,7 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <Image src="./trattoria-logo.webp" alt="La Trattoria" width={40} height={40} className="rounded-full" />
+            <Image src={assetPath('/trattoria-logo.webp')} alt="La Trattoria" width={40} height={40} className="rounded-full" />
             <span className="font-display text-lg font-semibold hidden sm:block">La Trattoria</span>
           </Link>
 

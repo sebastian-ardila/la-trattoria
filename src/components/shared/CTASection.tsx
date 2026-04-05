@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from '@phosphor-icons/react';
 import { useLang } from '@/context/LanguageContext';
+import { assetPath } from '@/utils/basePath';
 
 interface CTASectionProps {
   secondaryLabel: string;
@@ -21,7 +22,7 @@ export function CTASection({ secondaryLabel, secondaryLabelIt, secondaryLabelEn,
         {/* Background food image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="./cta-bg.webp"
+          src={assetPath('/cta-bg.webp')}
           alt=""
           className="absolute inset-0 w-full h-full object-cover scale-105"
           aria-hidden="true"
@@ -36,7 +37,7 @@ export function CTASection({ secondaryLabel, secondaryLabelIt, secondaryLabelEn,
           <div className="text-center md:text-left max-w-lg">
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
               <Image
-                src="./trattoria-logo.webp"
+                src={assetPath('/trattoria-logo.webp')}
                 alt="La Trattoria"
                 width={48}
                 height={48}
