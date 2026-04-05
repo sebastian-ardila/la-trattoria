@@ -47,6 +47,17 @@ export function Footer() {
               <p className="text-white/80 font-medium">{t('Domingo', 'Domenica', 'Sunday')}</p>
               <p className="text-white/50">12:00 p.m. – 5:00 p.m.</p>
             </div>
+            <div className="border-t border-dark-border pt-2 mt-2">
+              <p className="text-white/40 text-[10px] uppercase tracking-wider mb-1.5">{t('Festivos', 'Festivi', 'Holidays')}</p>
+              <div className="bg-dark-lighter rounded-lg p-3 text-sm">
+                <p className="text-white/80 font-medium">{t('Lunes festivos', 'Lunedì festivi', 'Holiday Mondays')}</p>
+                <p className="text-white/50">12:00 p.m. – 5:00 p.m.</p>
+              </div>
+              <div className="bg-dark-lighter rounded-lg p-3 text-sm mt-1.5">
+                <p className="text-white/80 font-medium">{t('Martes a Viernes festivos', 'Martedì a Venerdì festivi', 'Tuesday to Friday holidays')}</p>
+                <p className="text-white/50">12:00 p.m. – 9:00 p.m.</p>
+              </div>
+            </div>
           </div>
         </div>
 

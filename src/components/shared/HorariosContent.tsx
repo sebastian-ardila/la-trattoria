@@ -1,7 +1,6 @@
 'use client';
 
-import { Clock, MapPin, CalendarBlank, WhatsappLogo, AppleLogo } from '@phosphor-icons/react';
-import Link from 'next/link';
+import { Clock, MapPin, AppleLogo } from '@phosphor-icons/react';
 import { useLang } from '@/context/LanguageContext';
 import { GoogleMapsIcon, WazeIcon } from '@/components/shared/BrandIcons';
 import { businessInfo, businessHours, dayKeys, dayNames } from '@/data/businessInfo';
@@ -86,18 +85,6 @@ export function HorariosContent() {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* CTA buttons */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Link href="/reservas" className="flex items-center gap-2 px-8 py-3 bg-gold hover:bg-gold-dark text-dark font-semibold rounded-lg transition-colors">
-          <CalendarBlank size={20} />
-          {t('Reservar mesa', 'Prenota un tavolo', 'Reserve a table')}
-        </Link>
-        <a href={businessInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-8 py-3 bg-whatsapp hover:bg-whatsapp-dark text-white font-semibold rounded-lg transition-colors">
-          <WhatsappLogo size={20} weight="fill" />
-          {t('Pedir por WhatsApp', 'Ordina via WhatsApp', 'Order via WhatsApp')}
-        </a>
       </div>
     </section>
   );
