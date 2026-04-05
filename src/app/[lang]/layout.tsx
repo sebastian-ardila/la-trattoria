@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { LanguageProvider, type Lang } from '@/context/LanguageContext';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { FloatingCartBar } from '@/components/cart/FloatingCartBar';
+import { ScrollButtons } from '@/components/shared/ScrollButtons';
 
 export function generateStaticParams() {
   return [{ lang: 'es' }, { lang: 'it' }, { lang: 'en' }];
@@ -29,6 +30,7 @@ export default async function LangLayout({
         <Footer />
         <CartDrawer />
         <FloatingCartBar />
+        <ScrollButtons />
       </CartProvider>
     </LanguageProvider>
   );

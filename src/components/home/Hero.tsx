@@ -27,7 +27,7 @@ export function Hero() {
         muted
         loop
         playsInline
-        poster={assetPath('/trattoria-logo.webp')}
+        preload="auto"
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source src={assetPath('/video-hero.webm')} type="video/webm" />
