@@ -86,16 +86,16 @@ export function Hero() {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-row items-center justify-center gap-3">
           <button
             onClick={scrollToMenu}
-            className="px-8 py-3 bg-accent-light hover:bg-accent text-white font-semibold rounded-lg transition-colors text-lg"
+            className="px-5 py-2.5 sm:px-8 sm:py-3 bg-accent-light hover:bg-accent text-white font-semibold rounded-lg transition-colors text-sm sm:text-lg"
           >
             {t('Ver nuestra carta', 'Scopri il nostro menu', 'View our menu')}
           </button>
           <Link
             href={localePath('/reservas')}
-            className="px-8 py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded-lg transition-colors text-lg hover:bg-white/5"
+            className="px-5 py-2.5 sm:px-8 sm:py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded-lg transition-colors text-sm sm:text-lg hover:bg-white/5"
           >
             {t('Reservar mesa', 'Prenota un tavolo', 'Reserve a table')}
           </Link>
