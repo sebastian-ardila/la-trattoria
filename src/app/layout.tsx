@@ -1,12 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/layout/Navbar';
-import { Breadcrumb } from '@/components/layout/Breadcrumb';
-import { Footer } from '@/components/layout/Footer';
-import { CartProvider } from '@/context/CartContext';
-import { LanguageProvider } from '@/context/LanguageContext';
-import { CartDrawer } from '@/components/cart/CartDrawer';
-import { FloatingCartBar } from '@/components/cart/FloatingCartBar';
 
 export const metadata: Metadata = {
   title: "La Trattoria - Cucina tradizionale d'Italia",
@@ -27,18 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body>
-        <LanguageProvider>
-          <CartProvider>
-            <Navbar />
-            <Breadcrumb />
-            <main>{children}</main>
-            <Footer />
-            <CartDrawer />
-            <FloatingCartBar />
-          </CartProvider>
-        </LanguageProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

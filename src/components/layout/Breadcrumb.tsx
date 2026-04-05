@@ -14,15 +14,16 @@ const pageMap: Record<string, { iconEl: typeof House; labelEs: string; labelIt: 
 
 export function Breadcrumb() {
   const pathname = usePathname();
-  const { t } = useLang();
-  const page = pageMap[pathname];
+  const { t, localePath } = useLang();
+  const pathWithoutLang = pathname.replace(/^\/(es|it|en)/, '');
+  const page = pageMap[pathWithoutLang];
 
   if (!page) return null;
 
   return (
     <div className="sticky top-16 z-40 bg-dark/95 backdrop-blur-sm border-b border-dark-border">
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2 text-sm text-white/60">
-        <Link href="/" className="flex items-center gap-1 hover:text-white transition-colors">
+        <Link href={localePath('/')} className="flex items-center gap-1 hover:text-white transition-colors">
           <House size={16} />
           {t('Inicio', 'Home', 'Home')}
         </Link>

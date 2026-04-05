@@ -14,7 +14,7 @@ interface CTASectionProps {
 }
 
 export function CTASection({ secondaryLabel, secondaryLabelIt, secondaryLabelEn, secondaryHref }: CTASectionProps) {
-  const { t } = useLang();
+  const { t, localePath } = useLang();
 
   return (
     <section className="my-10 mx-4 md:mx-auto max-w-7xl">
@@ -57,14 +57,14 @@ export function CTASection({ secondaryLabel, secondaryLabelIt, secondaryLabelEn,
           {/* Right side: buttons */}
           <div className="flex flex-col gap-3 w-full md:w-auto shrink-0">
             <Link
-              href="/"
+              href={localePath('/')}
               className="flex items-center justify-center gap-3 px-10 md:px-14 py-4 md:py-5 bg-gold hover:bg-gold-dark text-dark font-bold rounded-xl transition-colors text-base md:text-lg shadow-lg shadow-gold/20"
             >
               {t('Ver carta', 'Vedi menu', 'View menu')}
               <ArrowRight size={20} weight="bold" />
             </Link>
             <Link
-              href={secondaryHref}
+              href={localePath(secondaryHref)}
               className="flex items-center justify-center gap-3 px-10 md:px-14 py-4 md:py-5 bg-white/15 backdrop-blur-sm hover:bg-white/25 text-white font-semibold rounded-xl transition-colors text-base md:text-lg border border-white/20"
             >
               {t(secondaryLabel, secondaryLabelIt, secondaryLabelEn)}

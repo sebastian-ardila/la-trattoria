@@ -28,7 +28,7 @@ const langFlags: { code: Lang; flag: string; label: string }[] = [
 
 export function MobileMenu({ open, onClose, navItems }: MobileMenuProps) {
   const pathname = usePathname();
-  const { lang, setLang, t } = useLang();
+  const { lang, setLang, t, localePath } = useLang();
 
   if (!open) return null;
 
@@ -42,11 +42,11 @@ export function MobileMenu({ open, onClose, navItems }: MobileMenuProps) {
       </div>
       <div className="flex-1 flex flex-col justify-center gap-2 px-6">
         {navItems.map(item => {
-          const isActive = pathname === item.href;
+          const isActive = pathname === localePath(item.href);
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={localePath(item.href)}
               onClick={onClose}
               className={`flex items-center gap-4 px-4 py-5 text-xl transition-colors ${
                 isActive ? 'text-gold' : 'text-white/80 hover:text-white'

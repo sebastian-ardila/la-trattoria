@@ -9,7 +9,7 @@ import { businessInfo } from '@/data/businessInfo';
 import { TripAdvisorIcon, WazeIcon, GoogleMapsIcon } from '@/components/shared/BrandIcons';
 
 export function Hero() {
-  const { t } = useLang();
+  const { t, localePath } = useLang();
 
   const scrollToMenu = () => {
     const el = document.getElementById('carta');
@@ -94,7 +94,7 @@ export function Hero() {
             {t('Ver nuestra carta', 'Scopri il nostro menu', 'View our menu')}
           </button>
           <Link
-            href="/reservas"
+            href={localePath('/reservas')}
             className="px-8 py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded-lg transition-colors text-lg hover:bg-white/5"
           >
             {t('Reservar mesa', 'Prenota un tavolo', 'Reserve a table')}

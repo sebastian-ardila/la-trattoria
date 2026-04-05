@@ -32,7 +32,7 @@ const langFlags: { code: Lang; flag: string }[] = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { lang, setLang, t } = useLang();
+  const { lang, setLang, t, localePath } = useLang();
   const { totalItems, setCartOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -41,7 +41,7 @@ export function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-dark/95 backdrop-blur-sm border-b border-dark-border">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
+          <Link href={localePath('/')} className="flex items-center gap-2 shrink-0">
             <Image src={assetPath('/trattoria-logo.webp')} alt="La Trattoria" width={40} height={40} className="rounded-full" />
             <span className="font-display text-lg font-semibold hidden sm:block">La Trattoria</span>
           </Link>
@@ -49,11 +49,11 @@ export function Navbar() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-0">
             {navItems.map(item => {
-              const isActive = pathname === item.href;
+              const isActive = pathname === localePath(item.href);
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={localePath(item.href)}
                   className={`flex items-center gap-1.5 px-4 py-4 text-sm transition-colors relative ${
                     isActive
                       ? 'text-gold'
